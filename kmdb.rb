@@ -251,7 +251,6 @@ puts ""
 
 # Query the movies data and loop through the results to display the movies output.
 
-
     # retrieve all movies from the database using ActiveRecord
     Movies = Movie.all
 
@@ -266,21 +265,17 @@ puts "Top Cast"
 puts "========"
 puts ""
 
-# Query the cast data and loop through the results to display the cast output for each movie.
-
-# get all movies
-movies = Movie.all
-
-# loop through movies
-movies.each do |movie|
-
-  # get all roles for current movie
-  roles = Role.where({"movie_id" => movie.id})
-
-  # loop through roles
-  roles.each do |role|
-    actor = Role.find_by({"movie_id" => movie.id})
-    character_name = role.character_name
-    puts "#{movies.title} #{actors.name} #{character_name}"
+    # loop through the movies and display them in the console output
+    Movies.each do |movie|
+        # get all roles for current movie
+        roles = Role.where({“movie_id” => movie.id})
+          # loop through roles
+         roles.each do |role|
+            actor = Role.find_by({“movie_id” => movie.id})
+            character_name = role.character_name
+            puts "#{actor.name} #{character_name}"
   end
 end
+
+
+
