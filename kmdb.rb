@@ -146,7 +146,101 @@ new_actor = Actor.new
 new_actor["name"] = "Anne Hathaway"
 new_actor.save
 
+# insert new rows in STUDIOS TABLE
+new_studio = Studio.new
+new_studio["name"] = "Warner Bros"
+new_studio.save
 
+# insert new rows in ROLES TABLE
+new_role = Role.new
+new_role["movie_id"] = 1
+new_role["actor_id"] = 1
+new_role["character_name"] = "Bruce Wayne"
+new_role.save
+
+new_role = Role.new
+new_role["movie_id"] = 1
+new_role["actor_id"] = 2
+new_role["character_name"] = "Alfred"
+new_role.save
+
+new_role = Role.new
+new_role["movie_id"] = 1
+new_role["actor_id"] = 3
+new_role["character_name"] = "Ra's Al Ghul"
+new_role.save
+
+new_role = Role.new
+new_role["movie_id"] = 1
+new_role["actor_id"] = 4
+new_role["character_name"] = "Rachel Dawes"
+new_role.save
+
+new_role = Role.new
+new_role["movie_id"] = 1
+new_role["actor_id"] = 5
+new_role["character_name"] = "Commissioner Gordon"
+new_role.save
+
+new_role = Role.new
+new_role["movie_id"] = 2
+new_role["actor_id"] = 1
+new_role["character_name"] = "Bruce Wayne"
+new_role.save
+
+new_role = Role.new
+new_role["movie_id"] = 2
+new_role["actor_id"] = 6
+new_role["character_name"] = "Joker"
+new_role.save
+
+new_role = Role.new
+new_role["movie_id"] = 2
+new_role["actor_id"] = 7
+new_role["character_name"] = "Harvey Dent"
+new_role.save
+
+new_role = Role.new
+new_role["movie_id"] = 2
+new_role["actor_id"] = 2
+new_role["character_name"] = "Alfred"
+new_role.save
+
+new_role = Role.new
+new_role["movie_id"] = 2
+new_role["actor_id"] = 8
+new_role["character_name"] = "Rachel Dawes"
+new_role.save
+
+new_role = Role.new
+new_role["movie_id"] = 3
+new_role["actor_id"] = 1
+new_role["character_name"] = "Bruce Wayne"
+new_role.save
+
+new_role = Role.new
+new_role["movie_id"] = 3
+new_role["actor_id"] = 5
+new_role["character_name"] = "Commissioner Gordon"
+new_role.save
+
+new_role = Role.new
+new_role["movie_id"] = 3
+new_role["actor_id"] = 9
+new_role["character_name"] = "Bane"
+new_role.save
+
+new_role = Role.new
+new_role["movie_id"] = 3
+new_role["actor_id"] = 10
+new_role["character_name"] = "John Blake"
+new_role.save
+
+new_role = Role.new
+new_role["movie_id"] = 3
+new_role["actor_id"] = 11
+new_role["character_name"] = "Selina Kyle"
+new_role.save
 
 
 ##----------------------------------------##
@@ -157,14 +251,14 @@ puts ""
 
 # Query the movies data and loop through the results to display the movies output.
 
-# retrieve all movies from the database using ActiveRecord
-Movies = Movie.all
 
-# loop through the movies and display them in the console output
-Movies.each do |movie|
-  puts " #{movie.title}"
-end
-  
+    # retrieve all movies from the database using ActiveRecord
+    Movies = Movie.all
+
+    # loop through the movies and display them in the console output
+    Movies.each do |movie|
+        puts " #{movie.title}"
+    end
 
 # Prints a header for the cast output
 puts ""
@@ -173,4 +267,20 @@ puts "========"
 puts ""
 
 # Query the cast data and loop through the results to display the cast output for each movie.
-# TODO!
+
+# get all movies
+movies = Movie.all
+
+# loop through movies
+movies.each do |movie|
+
+  # get all roles for current movie
+  roles = Role.where({"movie_id" => movie.id})
+
+  # loop through roles
+  roles.each do |role|
+    actor = Role.find_by({"movie_id" => movie.id})
+    character_name = role.character_name
+    puts "#{movies.title} #{actors.name} #{character_name}"
+  end
+end
