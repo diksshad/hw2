@@ -289,8 +289,18 @@ puts ""
 movies = Movie.all
 
 for movie in movies
-puts "#{movie["title"]}"
-end
+    # read each movie row's columns
+    movie_title = movie["title"]
+    year_released = movie["year_released"]
+    rated = movie["rated"]
+    studio_id = movie["studio_id"]
+
+    # fetch the studio using studio_id
+    studio_name = Studio.find_by({ "id" => movie["studio_id"] }).name
+
+    # display
+    puts "#{movie_title} #{year_released} #{rated} #{studio_name}"
+  end
 
 puts ""
 puts "Top Cast"
