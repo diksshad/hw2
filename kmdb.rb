@@ -287,35 +287,15 @@ puts "======"
 puts ""
 
 movies = Movie.all
-actors = Actor.all
 
 for movie in movies
 puts "#{movie["title"]}"
 end
 
-#get the roles in movie 1
-#dark_knight_roles= Role.find_by({"movie_id" => "Dark Kight"})
-#dark_knight_roles= Role.find_by({"movie_id" => "Dark Knight Rises"})
-
-# first query to find the row in movies for Batman Begins
-#batman_begins = Movie.find_by({ "title" => "Batman Begins" })
-
-# next, query to find all rows in roles with relationship to Batman Begins
-# "talk" to the roles table using the Role model:
-
-batman_begins_roles = Role.where({ "movie_id" => batman_begins["id"] })
-#dark_knight_roles = Role.where({ "movie_id" => dark_knight["id"] })
-#dark_knight_rises_roles = Role.where({ "movie_id" => dark_knight_rises["id"] })
-
-# loop through roles
-for role in batman_begins_roles
-  # read each role row's movie_id, actor_id, and character_name columns
-  movie_title = Movie.find(role["movie_id"])["title"]
-  actor_name = Actor.find(role["actor_id"])["name"]
-  character_name = role["character_name"]
-  # display the movie_title, actor_name, and character_name
-  puts "#{movie_title} #{actor_name} #{character_name}"
-end
+puts ""
+puts "Top Cast"
+puts "======"
+puts ""
 
 # Define an array of movie titles
 movie_titles = ["Batman Begins", "The Dark Knight", "The Dark Knight Rises"]
@@ -330,8 +310,12 @@ for title in movie_titles
 
   # Display the movie title and the roles
   for role in roles
-    actor = Actor.find_by({id:role["actor_id"]})
-    puts "#{title} #{actor['name']} #{role['character_name']}"
+    movie_title = movie["title"]
+    actor_name = Actor.find_by({ "id" => role["actor_id"] }).name
+    #actor_name = Role.where({ "actor_id" => role["actor_id"] })
+    role_name = role["character_name"]
+    #actor = Actor.find_by({id:role["actor_id"]})
+    puts "#{movie_title} #{actor_name} #{role_name}"
   end
 end
 
