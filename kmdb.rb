@@ -297,27 +297,41 @@ end
 #dark_knight_roles= Role.find_by({"movie_id" => "Dark Kight"})
 #dark_knight_roles= Role.find_by({"movie_id" => "Dark Knight Rises"})
 
-#-------
-# 2. How many roles in movie1
+# first query to find the row in movies for Batman Begins
+#batman_begins = Movie.find_by({ "title" => "Batman Begins" })
 
-# first query to find the row in companies for Apple
-batman_begins = Movie.find_by({ "title" => "Batman Begins" })
+# next, query to find all rows in roles with relationship to Batman Begins
+# "talk" to the roles table using the Role model:
 
-# next, query to find all rows in contacts with relationship to Apple
-# "talk" to the contacts table using the Contact model:
+batman_begins_roles = Role.where({ "movie_id" => batman_begins["id"] })
+#dark_knight_roles = Role.where({ "movie_id" => dark_knight["id"] })
+#dark_knight_rises_roles = Role.where({ "movie_id" => dark_knight_rises["id"] })
 
-batman_begins_roles= Role.find_by({"character_name" => "Bruce Wayne"})
-puts batman_begins_roles.inspect
-
-puts "Contacts at Apple: #{batman_begins_roles.count}"
-
-# 3. What is the full name of each contact who works at Apple?
-
-# loop through contacts
+# loop through roles
 for role in batman_begins_roles
-  # read each contact row's first_name and last_name columns
-  movie_title = role["movie_id"]
-  actor_name = role["actor_id"]
-  # display the first_name and last_name
-  puts "#{movie_title} #{actor_name}"
+  # read each role row's movie_id, actor_id, and character_name columns
+  movie_title = Movie.find(role["movie_id"])["title"]
+  actor_name = Actor.find(role["actor_id"])["name"]
+  character_name = role["character_name"]
+  # display the movie_title, actor_name, and character_name
+  puts "#{movie_title} #{actor_name} #{character_name}"
 end
+
+# Define an array of movie titles
+movie_titles = ["Batman Begins", "The Dark Knight", "The Dark Knight Rises"]
+
+# Loop through each movie title
+for title in movie_titles
+  # Find the movie by its title
+  movie = Movie.find_by({ "title" => title })
+
+  # Find the roles for the movie
+  roles = Role.where({ "movie_id" => movie["id"] })
+
+  # Display the movie title and the roles
+  for role in roles
+    actor = Actor.find_by({id:role["actor_id"]})
+    puts "#{title} #{actor['name']} #{role['character_name']}"
+  end
+end
+
